@@ -1,3 +1,15 @@
+
+module CalendarView
+    def showEvents(array)
+      puts "     Date            No of Events"
+      for i in 0..array.length-1
+        count=array.select {|h| h[:date]== array[i][:date]}
+      end
+      puts "#{array[i][:date]}                  #{count.length}"
+    end
+  end
+
+
 ############################# Date and Time #############################
 require 'rspec/autorun'
 require 'date'
@@ -41,7 +53,7 @@ end
 ############################# Event Creation #############################
 
 class CreateEvent
-
+    include CalendarView
 attr_accessor :title, :date
 
 ############################# Adding of Event #############################
@@ -120,6 +132,8 @@ x = Date.parse(mon).strftime("%B")
       array.delete_if {|item| Date.parse(item[:date]).strftime("%B") == x}
       p array
 end
+    
+
 ############################# End OF Class #############################
 end
 
@@ -136,7 +150,8 @@ loop do
     puts "3)- Delete an Event on Single Date."
     puts "4)- Delete all Events on a Date."
     puts "5)- Delete Events based on Months."
-    puts "6)- Exit."
+    puts "6)- To View  Calender."
+    puts "7)- Exit."
 
 
 choice = gets.chomp
@@ -156,6 +171,8 @@ elsif choice == "5"
     obj.deleteAlleventsInMonth(array)
 
 elsif choice == "6"
+    obj.showEvents(array)
+else
     break
 end
 end
